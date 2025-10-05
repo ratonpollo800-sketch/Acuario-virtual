@@ -460,6 +460,8 @@ def invalid_token_callback(error): return jsonify(message=f"Token inválido: {er
 @jwt.unauthorized_loader
 def missing_token_callback(error): return jsonify(message=f"Falta token: {error}"), 401
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
+#    init_db()
+#   app.run(debug=True, port=5000)
+with app.app_context():
     init_db()
-    app.run(debug=True, port=5000)
