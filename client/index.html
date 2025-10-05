@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acuario Virtual Web</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Línea añadida para el ícono de candado -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <!-- Pantalla de Autenticación -->
+    <div id="auth-screen" class="modal-overlay">
+        <div class="auth-content">
+            <form id="login-form">
+                <h2>Iniciar Sesión</h2>
+                <!-- Inputs agrupados para el estilo en dos columnas -->
+                <div class="input-group">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">Entrar</button>
+                <div class="or-separator">O</div>
+                <div id="google-signin-button"></div>
+                <p>¿No tienes cuenta? <a href="#" id="show-register">Regístrate</a></p>
+            </form>
+            <form id="register-form" class="hidden">
+                <h2>Crear Cuenta</h2>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Contraseña" required>
+                <!-- CAMBIO REALIZADO: Campo para el código de referido añadido en el registro -->
+                <input type="text" id="referral-code" placeholder="Código de Referido (Opcional)">
+                <button type="submit">Registrar</button>
+                <p>¿Ya tienes cuenta? <a href="#" id="show-login">Inicia Sesión</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE VERIFICACIÓN -->
+    <div id="verification-screen" class="modal-overlay hidden">
+        <div class="auth-content">
+            <form id="verification-form">
+                <h2>Verificar Cuenta</h2>
+                <p>Hemos enviado un código de 6 dígitos a <strong id="verification-email-display">...</strong></p>
+                <p>Por favor, ingrésalo a continuación.</p>
+                <input type="text" id="verification-code" placeholder="Código de 6 dígitos" required maxlength="6" autocomplete="one-time-code">
+                <button type="submit">Verificar Cuenta</button>
+                <p><a href="#" id="show-login-from-verify">Volver a Iniciar Sesión</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pantalla de Selección -->
+    <div id="selection-screen" class="modal-overlay hidden">
+        <div class="selection-content">
+            <h2>Elige tu Aventura</h2>
+            <p>Selecciona y desbloquea un pez para empezar a jugar y ganar su premio.</p>
+            <div class="fish-choices">
+                <div class="fish-choice" data-id="1">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <img src="assets/images/fish1.png" alt="Pez Naranja">
+                    <h3>PremIO: 500 Soles</h3>
+                    <div class="price-tag">S/ 170.00</div>
+                </div>
+                <div class="fish-choice" data-id="2">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <img src="assets/images/fish2.png" alt="Pez Azul">
+                    <h3>Premio: 870 Soles</h3>
+                    <div class="price-tag">S/ 450.00</div>
+                </div>
+                <div class="fish-choice" data-id="3">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <img src="assets/images/fish3.png" alt="Pez Verde">
+                    <h3>Premio: 1230 Soles</h3>
+                    <div class="price-tag">S/ 750.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor del Juego -->
+    <div id="game-container" class="hidden">
+        <div id="ui-top">
+            <div id="prize-display">Objetivo: <span id="prize-name">...</span></div>
+            <div id="progress-bar-container"><div id="progress-bar"></div><div id="progress-text">0%</div></div>
+            <div id="food-bag-display">Bolsa: <span id="food-bag-count">0</span>/5</div>
+            <div id="food-display">Reserva: <span id="food-count">0</span></div>
+            <button id="back-to-menu-button">Menú</button>
+            <button id="mute-button">🔊</button>
+            <button id="logout-button">Salir</button>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="ui-bottom">
+            <button id="load-food-button">Cargar Comida</button>
+            <button id="feed-button">Alimentar</button>
+            <button id="buy-food-button">Comprar Comida</button>
+            <button id="tasks-button">Tareas</button>
+            <button id="social-button">Invitar</button>
+            <button id="customer-service-button">Soporte</button>
+            <button id="withdraw-button" class="hidden">Retirar Premio</button>
+        </div>
+    </div>
+
+    <!-- Modales -->
+    <div id="loading-screen" class="modal-overlay hidden"><div class="spinner"></div><p style="color:white; margin-top:10px;">Conectando...</p></div>
+    <div id="tasks-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Lista de Tareas</h2><ul id="tasks-list"></ul><button class="close-button">Cerrar</button></div></div>
+    <!-- CAMBIO REALIZADO: Formulario para canjear código eliminado del modal social -->
+    <div id="social-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Invita y Gana</h2>
+            <p>Comparte tu código con amigos. Cuando se registren y compren su primer pez, ¡recibirás una gran recompensa de comida!</p>
+            <div id="user-invite-code" class="invite-code">CARGANDO...</div>
+            <button class="close-button">Cerrar</button>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+
+    <script src="game.js"></script>
+</body>
+</html>
