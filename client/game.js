@@ -3,7 +3,7 @@
 // ==============================================================================
 // === CONFIGURACIÓN Y CONSTANTES ===============================================
 // ==============================================================================
-const SERVER_URL = "http://127.0.0.1:5000";
+const SERVER_URL = "https://acuario-virtual-2.onrender.com";
 const GOOGLE_CLIENT_ID = "138562970749-203va1opuolk8bmbm5rlthq3kq3gibkq.apps.googleusercontent.com";
 const WHATSAPP_NUMBER = "+19719400733";
 
