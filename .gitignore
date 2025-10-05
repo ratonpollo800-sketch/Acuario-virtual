@@ -1,0 +1,7 @@
+# Archivos de entorno y secretos - ¡NUNCA SUBIR!
+.env
+server/.env
+
+# Carpetas de entorno virtual y caché de Python
+venv/
+__pycache__/
