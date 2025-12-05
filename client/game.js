@@ -5,7 +5,7 @@
 // ==============================================================================
 const SERVER_URL = "https://acuario-virtual-2.onrender.com";
 const GOOGLE_CLIENT_ID = "138562970749-203va1opuolk8bmbm5rlthq3kq3gibkq.apps.googleusercontent.com";
-const WHATSAPP_NUMBER = "+19719400733";l
+const WHATSAPP_NUMBER = "+19719400733";
 
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
